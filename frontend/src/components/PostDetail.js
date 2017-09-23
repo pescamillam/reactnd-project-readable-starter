@@ -8,10 +8,10 @@ class PostDetail extends Component {
     return (
       <div className="list-posts">
         <div className="list-posts-title">
-          <h1>Post</h1>
+          <h1>{post}</h1>
         </div>
         <div>
-          post
+          {post}
         </div>
       </div>
     );

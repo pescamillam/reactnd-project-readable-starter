@@ -16,9 +16,10 @@ class ListAllPosts extends Component {
       </div>
       <div className="list-posts-content">
         <div>
-          <div>
+          <div className='categories-container'>
+            <div className='categories-label'>Categories</div>
             {this.props.categories.map((category) =>
-              <div key={category.name}><Link to={`/${category.name}`}>{category.name}</Link></div>
+              <div className='category' key={category.name}><Link to={`/${category.name}`}>{category.name}</Link></div>
             )}
           </div>
           <div>

@@ -25,6 +25,22 @@ body, .app {
   background: white;
 }
 
+/** List All Posts */
+.categories-container {
+  margin: 10px;
+}
+
+.categories-label {
+  margin: 10px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.category {
+  margin: 10px;
+  display: inline-block;
+}
+
 /* main page */
 
 .list-posts-title {
@@ -80,9 +96,14 @@ body, .app {
 }
 
 /* post */
-.post {
-  border-style: solid;
+.post-container {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  background: lightcyan;
 }
-.post-link {
-  text-decoration: none;
+.post-title {
+  font-size: large;
+  font-weight: bold;
 }
