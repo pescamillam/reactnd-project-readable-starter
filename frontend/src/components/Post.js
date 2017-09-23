@@ -12,19 +12,18 @@ class Post extends Component {
       <div className="post-container">
         <div className="post-title">{post.title}</div>
         <div>{post.author}</div>
-        <div>{post.voteScore}</div>
-        <Link key={post.id} to={`/${post.category}/${post.id}`} className="post-link">
+        <Link className='post-action' key={post.id} to={`/${post.category}/${post.id}`} className="post-link">
           Detail
         </Link>
-        <div onClick={this.upvote}>
+        <div className='post-action' onClick={this.upvote}>
           Upvote
         </div>
-        <div onClick={this.downvote}>
+        <div className='post-action' onClick={this.downvote}>
           Downvote
         </div>
-        <div>score: {post.voteScore}</div>
-        <div>edit</div>
-        <div>delete</div>
+        <div className='post-action'>score: {score}</div>
+        <div className='post-action'>edit</div>
+        <div className='post-action'>delete</div>
       </div>
     );
   }
