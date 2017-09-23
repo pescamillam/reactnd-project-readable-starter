@@ -1,0 +1,30 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Post from './Post';
+
+class ListPostsByCategory extends Component {
+  render() {
+    const { posts, match } = this.props;
+    const { category } = match.params;
+    return (
+    <div className="list-posts">
+      <div className="list-posts-title">
+        <h1>{ category }</h1>
+      </div>
+      <div className="list-posts-content">
+        <div>
+          <div>
+            {posts.map((post) =>
+              <Post key={post.id} post={post}/>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="open-search">
+      </div>
+    </div>
+    )
+  }
+}
+
+export default ListPostsByCategory

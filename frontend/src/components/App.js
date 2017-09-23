@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { fetchCategories, fetchAllPosts } from '../utils/api'
+import ListAllPosts from './ListAllPosts'
+import ListPostsByCategory from './ListPostsByCategory'
+import PostDetail from './PostDetail'
 
 class App extends Component {
 
@@ -16,16 +20,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div>
-          {this.state.categories.map((category) =>
-            <div key={category.name}>{category.name}</div>
-          )}
-        </div>
-        <div>
-          {this.state.posts.map((post) =>
-            <div key={post.id}>{post.title}</div>
-          )}
-        </div>
+        <Route exact path='/' render={() => (
+          <ListAllPosts categories={this.state.categories} posts={this.state.posts}/>
+        )}/>
+        <Route exact path='/:category' render={({match}) => (
+          <ListPostsByCategory categories={this.state.categories} posts={this.state.posts} match={match}/>
+        )}/>
+        <Route exact path='/:category/:post' render={({match}) => (
+          <PostDetail match={match}/>
+        )}/>
       </div>
     );
   }
