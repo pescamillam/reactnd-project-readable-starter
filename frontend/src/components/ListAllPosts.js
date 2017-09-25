@@ -24,7 +24,7 @@ class ListAllPosts extends Component {
           </div>
           <div>
             {this.props.posts.map((post) =>
-              <Post post={post}/>
+              <Post key={post.id} post={post}/>
             )}
           </div>
           <div>

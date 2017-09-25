@@ -4,6 +4,7 @@ import { fetchCategories, fetchAllPosts } from '../utils/api'
 import ListAllPosts from './ListAllPosts'
 import ListPostsByCategory from './ListPostsByCategory'
 import PostDetail from './PostDetail'
+import { connect } from 'react-redux'
 
 class App extends Component {
 
@@ -34,4 +35,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+
+)(App)
