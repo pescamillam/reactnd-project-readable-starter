@@ -23,34 +23,23 @@ class PostDetail extends Component {
     const { post, comments } = this.state;
     return (
       <div>
-        <div>
-          {post.category}
-        </div>
-        <div>
-          {post.title}
-        </div>
-        <div>
-          {post.voteScore}
-        </div>
-        <div>
-          {post.body}
-        </div>
-        <div>
-          {post.author}
-        </div>
-        <div>
-          edit
-        </div>
-        <div>
-          delete
+        <div className="post-container">
+          <div className="post-title">{post.title}</div>
+          <div>{post.body}</div>
+          <div>{post.author}</div>
+          <div className='post-action'>upvote</div>
+          <div className='post-action'>downvote</div>
+          <div className='post-action'>{post.voteScore}</div>
+          <div className='post-action'>edit</div>
+          <div className='post-action'>delete</div>
         </div>
         {comments.map((comment) =>
-          <div>
+          <div className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
-            <div>{comment.voteScore}</div>
-            <div>upvote</div>
-            <div>downvote</div>
+            <div className='post-action'>upvote</div>
+            <div className='post-action'>downvote</div>
+            <div className='post-action'>{comment.voteScore}</div>
           </div>
         )}
       </div>
