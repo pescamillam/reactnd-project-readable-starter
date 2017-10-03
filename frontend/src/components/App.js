@@ -25,7 +25,8 @@ class App extends Component {
           <ListAllPosts categories={this.state.categories} posts={this.state.posts}/>
         )}/>
         <Route exact path='/:category' render={({match}) => (
-          <ListPostsByCategory categories={this.state.categories} posts={this.state.posts} match={match}/>
+          <ListPostsByCategory categories={this.state.categories}
+            posts={this.state.posts} match={match}/>
         )}/>
         <Route exact path='/:category/:post' render={({match}) => (
           <PostDetail match={match}/>
