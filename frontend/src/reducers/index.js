@@ -6,7 +6,8 @@ function posts (state={}, action) {
     case ADD_POST:
       const { post } = action;
       return {
-        ...state
+        ...state,
+        post
       };
     default:
       return state;

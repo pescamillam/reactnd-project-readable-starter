@@ -36,4 +36,17 @@ class App extends Component {
   }
 }
 
-export default App
+function mapStateToProps (posts) {
+  return {
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
