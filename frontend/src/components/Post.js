@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Post extends Component {
-  state = {
-    score: 0
-  }
   render() {
     const { post } = this.props;
-    const { score } = this.state;
     return (
       <div className="post-container">
         <div className="post-title">{post.title}</div>
@@ -21,17 +17,17 @@ class Post extends Component {
         <div className='post-action' onClick={this.downvote}>
           Downvote
         </div>
-        <div className='post-action'>score: {score}</div>
+        <div className='post-action'>score: {post.voteScore}</div>
         <div className='post-action'>edit</div>
         <div className='post-action'>delete</div>
       </div>
     );
   }
   upvote = () => {
-    this.setState(() => ({ score: this.state.score + 1 }));
+
   }
   downvote = () => {
-    this.setState(() => ({ score: this.state.score > 0 ? this.state.score - 1 : 0 }));
+    
   }
 }
 
