@@ -34,7 +34,7 @@ class PostDetail extends Component {
           <div className='post-action'>delete</div>
         </div>
         {comments.map((comment) =>
-          <div className="post-container">
+          <div key={comment.id} className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
             <div className='post-action'>upvote</div>

@@ -5,6 +5,7 @@ import ListAllPosts from './ListAllPosts'
 import ListPostsByCategory from './ListPostsByCategory'
 import PostDetail from './PostDetail'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 class App extends Component {
 
@@ -46,7 +47,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))
