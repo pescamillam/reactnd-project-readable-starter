@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { fetchPost, fetchComments } from '../utils/api'
 
 class PostDetail extends Component {
@@ -9,7 +8,7 @@ class PostDetail extends Component {
   }
   componentDidMount() {
     const { match } = this.props;
-    const { post, category } = match.params;
+    const { post } = match.params;
     fetchPost(post).then((post) => {
       this.setState({post});
     });
@@ -19,7 +18,6 @@ class PostDetail extends Component {
 
   }
   render() {
-    let score = 0;
     const { post, comments } = this.state;
     return (
       <div>
