@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addPost, upvotePost } from '../actions'
 
 class Post extends Component {
+
+  voteup = () => {
+    return this.props.onUpvote(this.props.post);
+  }
+
   render() {
     const { post } = this.props;
     return (
@@ -11,7 +18,7 @@ class Post extends Component {
         <Link className='post-action' key={post.id} to={`/${post.category}/${post.id}`} className="post-link">
           Detail
         </Link>
-        <div className='post-action' onClick={this.upvote}>
+        <div className='post-action' onClick={this.voteup}>
           Upvote
         </div>
         <div className='post-action' onClick={this.downvote}>
@@ -23,12 +30,23 @@ class Post extends Component {
       </div>
     );
   }
-  upvote = () => {
+}
 
-  }
-  downvote = () => {
-    
+
+const mapStateToProps = (state, ownProps) => {
+  const { target } = ownProps;
+  return {
+    target,
   }
 }
 
-export default Post
+function mapDispatchToProps (dispatch) {
+  return {
+    onUpvote: (data) => dispatch(upvotePost(data))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Post)

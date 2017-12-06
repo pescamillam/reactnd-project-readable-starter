@@ -31,3 +31,9 @@ export const fetchPost = (id) =>
 export const fetchComments = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
     .then((res) => {return res.json()});
+
+export const upvotePostApi = (post, responseFuction) => {
+  debugger;
+  fetch(`${api}/posts/${post.id}`, { headers })
+    .then(responseFuction);
+  }

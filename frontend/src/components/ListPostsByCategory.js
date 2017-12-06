@@ -22,6 +22,7 @@ class ListPostsByCategory extends Component {
         </div>
       </div>
       <div className="open-search">
+        <a/>
       </div>
     </div>
     )

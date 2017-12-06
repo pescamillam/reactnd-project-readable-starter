@@ -29,6 +29,7 @@ class ListAllPosts extends Component {
         </div>
       </div>
       <div className="open-search">
+        <Link to={`/create`}/>
       </div>
     </div>
     )
