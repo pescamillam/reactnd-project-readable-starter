@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
-import data from './reducers';
-export default combineReducers({ data, router: routerReducer });
+import { categories, posts } from './reducers';
+export default combineReducers({ categories, posts, router: routerReducer });

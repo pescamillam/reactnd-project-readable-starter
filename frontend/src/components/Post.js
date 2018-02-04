@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import { connect } from 'react-redux';
-import { addPost, upvotePost } from '../actions'
-=======
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { upvoteComment, downvoteComment } from '../actions'
->>>>>>> 5496e953883efcb3cd07f05faa15ce7845c3851e
+import { upvoteComment,
+  downvoteComment,
+  addPost,
+  upvotePost,
+  downvotePost,
+  editPost,
+  deletePost } from '../actions'
 
 class Post extends Component {
 
   voteup = () => {
     return this.props.onUpvote(this.props.post);
+  }
+
+  votedown = () => {
+    return this.props.onDownvote(this.props.post);
+  }
+
+  delete = () => {
+    return this.props.onDelete(this.props.post);
+  }
+
+  edit = () => {
+    return this.props.onEdit(this.props.post);
   }
 
   render() {
@@ -27,34 +40,35 @@ class Post extends Component {
         <div className='post-action' onClick={this.voteup}>
           Upvote
         </div>
-        <div className='post-action' onClick={this.downvote}>
+        <div className='post-action' onClick={this.votedown}>
           Downvote
         </div>
         <div className='post-action'>score: {post.voteScore}</div>
-        <div className='post-action'>edit</div>
-        <div className='post-action'>delete</div>
+        <div className='post-action' onClick={this.edit}>edit</div>
+        <Link className='post-action post-link' key={`{post.id}edit`} to={`/${post.category}/${post.id}/edit`}>
+          Edit
+        </Link>
+        <div className='post-action' onClick={this.delete}>delete</div>
       </div>
     );
   }
 }
 
-<<<<<<< HEAD
-
-const mapStateToProps = (state, ownProps) => {
+function mapStateToProps (state, ownProps) {
   const { target } = ownProps;
   return {
-    target,
-=======
-function mapStateToProps (posts) {
-  return {
->>>>>>> 5496e953883efcb3cd07f05faa15ce7845c3851e
+    target
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-<<<<<<< HEAD
-    onUpvote: (data) => dispatch(upvotePost(data))
+    upvote: (data) => dispatch(upvoteComment(data)),
+    downvote: (data) => dispatch(downvoteComment(data)),
+    onUpvote: (data) => dispatch(upvotePost(data)),
+    onDownvote: (data) => dispatch(downvotePost(data)),
+    onEdit: (data) => dispatch(editPost(data)),
+    onDelete: (data) => dispatch(deletePost(data))
   }
 }
 
@@ -62,14 +76,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Post)
-=======
-    upvote: (data) => dispatch(upvoteComment(data)),
-    downvote: (data) => dispatch(downvoteComment(data))
-  }
-}
-
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Post))
->>>>>>> 5496e953883efcb3cd07f05faa15ce7845c3851e

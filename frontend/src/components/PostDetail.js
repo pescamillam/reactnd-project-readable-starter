@@ -1,42 +1,73 @@
 import React, { Component } from 'react';
-import { fetchPost, fetchComments } from '../utils/api'
+import { connect } from 'react-redux';
+import { upvoteComment,
+  downvoteComment,
+  addPost,
+  upvotePost,
+  downvotePost,
+  editPost,
+  deletePost } from '../actions'
 
 class PostDetail extends Component {
-  state = {
-    post: {},
-    comments: []
+
+  voteup = () => {
+    return this.props.onUpvote(this.props.post);
   }
+
+  votedown = () => {
+    return this.props.onDownvote(this.props.post);
+  }
+
+  delete = () => {
+    return this.props.onDelete(this.props.post);
+  }
+
+  edit = () => {
+    return this.props.onEdit(this.props.post);
+  }
+
   componentDidMount() {
-    const { match } = this.props;
-    const { post } = match.params;
-    fetchPost(post).then((post) => {
-      this.setState({post});
-    });
-    fetchComments(post).then((comments) => {
-      this.setState({comments});
-    });
+    // const { match, posts } = this.props;
+    // const { postid } = match.params;
+    // var post;
+    // if (posts) {
+    //   this.state.post = posts &&
+    //     posts.filter((post) => (post.id === postid))[0];
+    // }
+    // fetchPost(post).then((post) => {
+    //   this.setState({post});
+    // });
+    // fetchComments(post).then((comments) => {
+    //   this.setState({comments});
+    // });
 
   }
   render() {
-    const { post, comments } = this.state;
+    const { categories, createPost, posts, match, comments } = this.props;
+    var post;
+    if (posts) {
+      post = posts &&
+        posts.filter((post) => (post.id === match.params.postid))[0];
+    }
+    debugger
     return (
       <div>
         <div className="post-container">
-          <div className="post-title">{post.title}</div>
-          <div>{post.body}</div>
-          <div>{post.author}</div>
+          <div className="post-title">{post && post.title}</div>
+          <div>{post && post.body}</div>
+          <div>{post && post.author}</div>
           <div className='post-action'>upvote</div>
           <div className='post-action'>downvote</div>
-          <div className='post-action'>{post.voteScore}</div>
+          <div className='post-action'>{post && post.voteScore}</div>
           <div className='post-action'>edit</div>
           <div className='post-action'>delete</div>
         </div>
-        {comments.map((comment) =>
+        {comments && comments.map((comment) =>
           <div key={comment.id} className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
-            <div className='post-action'>upvote</div>
-            <div className='post-action'>downvote</div>
+            <div className='post-action' onClick={this.voteup}>upvote</div>
+            <div className='post-action' onClick={this.votedown}>downvote</div>
             <div className='post-action'>{comment.voteScore}</div>
           </div>
         )}
@@ -45,4 +76,25 @@ class PostDetail extends Component {
   }
 }
 
-export default PostDetail
+function mapStateToProps (state, ownProps) {
+  const { target } = ownProps;
+  return {
+    target
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    upvote: (data) => dispatch(upvoteComment(data)),
+    downvote: (data) => dispatch(downvoteComment(data)),
+    onUpvote: (data) => dispatch(upvotePost(data)),
+    onDownvote: (data) => dispatch(downvotePost(data)),
+    onEdit: (data) => dispatch(editPost(data)),
+    onDelete: (data) => dispatch(deletePost(data))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostDetail)
