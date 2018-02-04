@@ -44,7 +44,6 @@ class Post extends Component {
           Downvote
         </div>
         <div className='post-action'>score: {post.voteScore}</div>
-        <div className='post-action' onClick={this.edit}>edit</div>
         <Link className='post-action post-link' key={`{post.id}edit`} to={`/${post.category}/${post.id}/edit`}>
           Edit
         </Link>

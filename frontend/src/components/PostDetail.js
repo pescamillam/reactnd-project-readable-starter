@@ -11,11 +11,11 @@ import { upvoteComment,
 class PostDetail extends Component {
 
   voteup = () => {
-    return this.props.onUpvote(this.props.post);
+    return this.props.onUpvote(this.props.posts.filter((post) => (post.id === this.props.match.params.postid))[0]);
   }
 
   votedown = () => {
-    return this.props.onDownvote(this.props.post);
+    return this.props.onDownvote(this.props.posts.filter((post) => (post.id === this.props.match.params.postid))[0]);
   }
 
   delete = () => {
@@ -49,15 +49,14 @@ class PostDetail extends Component {
       post = posts &&
         posts.filter((post) => (post.id === match.params.postid))[0];
     }
-    debugger
     return (
       <div>
         <div className="post-container">
           <div className="post-title">{post && post.title}</div>
           <div>{post && post.body}</div>
           <div>{post && post.author}</div>
-          <div className='post-action'>upvote</div>
-          <div className='post-action'>downvote</div>
+          <div className='post-action' onClick={this.voteup}>upvote</div>
+          <div className='post-action' onClick={this.votedown}>downvote</div>
           <div className='post-action'>{post && post.voteScore}</div>
           <div className='post-action'>edit</div>
           <div className='post-action'>delete</div>

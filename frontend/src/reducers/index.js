@@ -10,6 +10,7 @@ import { ADD_POST,
     ADD_COMMENT,
     GET_COMMENT,
     EDIT_COMMENT,
+    POST_DELETED,
     GET_POST_COMMENTS } from '../actions';
 
 
@@ -40,6 +41,11 @@ export function posts (state=[], action) {
 				...state,
 				posts: action.posts.filter(post => post.deleted === false)
 			};
+    case POST_DELETED:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id !== action.post.id)
+      }
     default:
       return state;
   }

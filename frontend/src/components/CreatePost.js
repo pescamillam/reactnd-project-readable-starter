@@ -22,7 +22,6 @@ class CreatePost extends Component {
   }
 
   render() {
-    debugger
     const { categories, createPost, posts, match } = this.props;
     var post;
     if (posts) {

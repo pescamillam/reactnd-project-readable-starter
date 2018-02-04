@@ -29,6 +29,7 @@ class App extends Component {
           <div>
             <div className='categories-container'>
               <div className='categories-label'>Categories</div>
+              <div className='category' key='Home'><Link to={`/`}>Home</Link></div>
               {categories && categories.map((category) =>
                 <div className='category' key={category.name}><Link to={`/${category.name}`}>{category.name}</Link></div>
               )}
