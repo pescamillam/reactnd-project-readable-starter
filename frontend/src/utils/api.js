@@ -34,7 +34,6 @@ export const fetchComments = (id) =>
     .then((res) => {return res.json()});
 
 export const createPost = (post, responseFunction, dispatch) => {
-  debugger;
   post.id = Math.random().toString().substr(-16);
   post.timestamp = Date.now();
   fetch(`${api}/posts`, { headers,
@@ -60,6 +59,22 @@ export const upvotePostApi = (post, responseFuction, dispatch) =>
 
 export const downvotePostApi = (post, responseFuction, dispatch) =>
   fetch(`${api}/posts/${post.id}`, { headers,
+      method: 'POST',
+      body: JSON.stringify({option: "downVote"})
+    }).then((res) => res.json())
+    .then((res) => dispatch(responseFuction(res)));
+
+export const upvoteCommentApi = (comment, responseFuction, dispatch) =>
+{
+  debugger
+  fetch(`${api}/comments/${comment.id}`, { headers,
+      method: 'POST',
+      body: JSON.stringify({option: "upVote"})
+    }).then((res) => res.json())
+    .then((res) => dispatch(responseFuction(res)));}
+
+export const downvoteCommentApi = (comment, responseFuction, dispatch) =>
+  fetch(`${api}/comments/${comment.id}`, { headers,
       method: 'POST',
       body: JSON.stringify({option: "downVote"})
     }).then((res) => res.json())

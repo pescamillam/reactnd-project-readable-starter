@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   render() {
-    const { categories, posts } = this.props;
+    const { categories, posts, comments } = this.props;
     return (
       <div>
         <div className="list-posts-title">

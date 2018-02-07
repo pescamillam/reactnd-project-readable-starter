@@ -3,7 +3,10 @@ import { upvotePostApi,
   createPost,
   fetchCategories,
   fetchAllPosts,
-  removePost } from '../utils/api'
+  removePost,
+  fetchComments,
+  upvoteCommentApi,
+  downvoteCommentApi } from '../utils/api'
 
 export const ADD_POST = 'ADD_POST';
 export const VOTE_UP_POST = 'VOTE_UP_POST';
@@ -29,6 +32,10 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENT = 'GET_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
+
+export const GET_COMMENTS = 'GET_COMMENTS';
+
+export const COMMENT_VOTED = 'COMMENT_VOTED';
 
 export function addPost(post) {
   return async (dispatch) => {
@@ -74,16 +81,17 @@ export function downvotePost(post) {
 }
 
 export function upvoteComment(comment) {
-  return {
-    type: UPVOTE_COMMENT,
-    comment
+  return async (dispatch) => {
+    debugger
+    dispatch({ type: PROCESSING, comment });
+    upvoteCommentApi(comment, dispatchCommentVoted, dispatch);
   }
 }
 
 export function downvoteComment(comment) {
-  return {
-    type: DOWNVOTE_COMMENT,
-    comment
+  return async (dispatch) => {
+    dispatch({ type: PROCESSING, comment });
+    downvoteCommentApi(comment, dispatchCommentVoted, dispatch);
   }
 }
 
@@ -101,10 +109,10 @@ function dispatchCreated(createdPost) {
   }
 }
 
-function dispatchDeleted(createdPost) {
+function dispatchDeleted(deletedPost) {
   return {
     type: POST_DELETED,
-    post: createdPost
+    post: deletedPost
   }
 }
 
@@ -122,6 +130,21 @@ export function getPosts(posts) {
   }
 }
 
+export function getComments(comments) {
+  console.log('getcommentsactions1');
+  return {
+    type: GET_COMMENTS,
+    comments
+  }
+}
+
+function dispatchCommentVoted(updatedComment) {
+  return {
+    type: COMMENT_VOTED,
+    comment: updatedComment
+  };
+}
+
 export function obtainCategories() {
 	return function (dispatch) {
 		fetchCategories()
@@ -133,5 +156,12 @@ export function obtainPosts() {
   return function (dispatch) {
     fetchAllPosts()
       .then((posts) => dispatch(getPosts(posts)));
+  }
+}
+
+export function obtainComments(postid) {
+  return function (dispatch) {
+    fetchComments(postid)
+      .then((comments) => dispatch(getComments(comments)))
   }
 }

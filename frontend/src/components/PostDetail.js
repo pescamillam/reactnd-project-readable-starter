@@ -6,16 +6,27 @@ import { upvoteComment,
   upvotePost,
   downvotePost,
   editPost,
-  deletePost } from '../actions'
+  deletePost,
+  obtainComments } from '../actions'
 
 class PostDetail extends Component {
 
   voteup = () => {
-    return this.props.onUpvote(this.props.posts.filter((post) => (post.id === this.props.match.params.postid))[0]);
+    return this.props.onUpvote(this.props.posts
+      .filter((post) => (post.id === this.props.match.params.postid))[0]);
   }
 
   votedown = () => {
-    return this.props.onDownvote(this.props.posts.filter((post) => (post.id === this.props.match.params.postid))[0]);
+    return this.props.onDownvote(this.props.posts
+      .filter((post) => (post.id === this.props.match.params.postid))[0]);
+  }
+
+  upvoteComment = (data) => {
+    return this.props.upvote(data);
+  }
+
+  downvoteComment = (data) => {
+    return this.props.downvote(data);
   }
 
   delete = () => {
@@ -27,23 +38,12 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    // const { match, posts } = this.props;
-    // const { postid } = match.params;
-    // var post;
-    // if (posts) {
-    //   this.state.post = posts &&
-    //     posts.filter((post) => (post.id === postid))[0];
-    // }
-    // fetchPost(post).then((post) => {
-    //   this.setState({post});
-    // });
-    // fetchComments(post).then((comments) => {
-    //   this.setState({comments});
-    // });
-
+    this.props.fetchComments(this.props.match.params.postid);
   }
+
   render() {
-    const { categories, createPost, posts, match, comments } = this.props;
+    const { comments, categories, createPost, posts, match } = this.props;
+
     var post;
     if (posts) {
       post = posts &&
@@ -65,8 +65,8 @@ class PostDetail extends Component {
           <div key={comment.id} className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
-            <div className='post-action' onClick={this.voteup}>upvote</div>
-            <div className='post-action' onClick={this.votedown}>downvote</div>
+            <div className='post-action' onClick={(e) => this.upvoteComment(comment)}>upvote</div>
+            <div className='post-action' onClick={(e) => this.downvoteComment(comment)}>downvote</div>
             <div className='post-action'>{comment.voteScore}</div>
           </div>
         )}
@@ -75,10 +75,9 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps (state, ownProps) {
-  const { target } = ownProps;
+function mapStateToProps ({comments}) {
   return {
-    target
+    comments: comments.comments
   }
 }
 
@@ -89,7 +88,8 @@ function mapDispatchToProps (dispatch) {
     onUpvote: (data) => dispatch(upvotePost(data)),
     onDownvote: (data) => dispatch(downvotePost(data)),
     onEdit: (data) => dispatch(editPost(data)),
-    onDelete: (data) => dispatch(deletePost(data))
+    onDelete: (data) => dispatch(deletePost(data)),
+    fetchComments: (data) => dispatch(obtainComments(data))
   }
 }
 
