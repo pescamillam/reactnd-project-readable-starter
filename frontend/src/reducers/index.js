@@ -13,7 +13,8 @@ import { ADD_POST,
     POST_DELETED,
     GET_POST_COMMENTS,
     GET_COMMENTS,
-    COMMENT_VOTED } from '../actions';
+    COMMENT_VOTED,
+    COMMENT_DELETED } from '../actions';
 
 
 export function posts (state=[], action) {
@@ -101,7 +102,6 @@ export function comments(state={}, action) {
         comments: action.comments
       }
     case COMMENT_VOTED:
-    debugger
       return {
         ...state,
         comments: state.comments.map((comment) => {
@@ -110,6 +110,11 @@ export function comments(state={}, action) {
           }
           return comment;
         })
+      }
+    case COMMENT_DELETED:
+      return {
+        ...state,
+        comments: state.comments.filter(comment => comment.id !== action.comment.id)
       }
     default:
       return state;

@@ -29,7 +29,7 @@ export const fetchPost = (id) =>
   fetch(`${api}/posts/${id}`, { headers })
     .then((res) => {return res.json()});
 
-export const fetchComments = (id) =>
+export const fetchCommentsApi = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
     .then((res) => {return res.json()});
 
@@ -64,14 +64,13 @@ export const downvotePostApi = (post, responseFuction, dispatch) =>
     }).then((res) => res.json())
     .then((res) => dispatch(responseFuction(res)));
 
-export const upvoteCommentApi = (comment, responseFuction, dispatch) =>
-{
-  debugger
+export const upvoteCommentApi = (comment, responseFuction, dispatch) => {
   fetch(`${api}/comments/${comment.id}`, { headers,
       method: 'POST',
       body: JSON.stringify({option: "upVote"})
     }).then((res) => res.json())
-    .then((res) => dispatch(responseFuction(res)));}
+    .then((res) => dispatch(responseFuction(res)));
+}
 
 export const downvoteCommentApi = (comment, responseFuction, dispatch) =>
   fetch(`${api}/comments/${comment.id}`, { headers,
@@ -79,3 +78,20 @@ export const downvoteCommentApi = (comment, responseFuction, dispatch) =>
       body: JSON.stringify({option: "downVote"})
     }).then((res) => res.json())
     .then((res) => dispatch(responseFuction(res)));
+
+export const createComment = (comment, responseFunction, dispatch) => {
+  comment.id = Math.random().toString().substr(-16);
+  comment.timestamp = Date.now();
+  fetch(`${api}/comments`, { headers,
+    method: 'POST',
+    body: JSON.stringify(comment)
+  }).then((res) => res.json())
+  .then((res) => dispatch(responseFunction(res)));
+}
+
+export const removeCommentApi = (id, responseFunction, dispatch) => {
+  fetch(`${api}/comments/${id}`, { headers,
+      method: 'DELETE'
+    }).then((res) => res.json())
+    .then((res) => dispatch(responseFunction(res)));
+}

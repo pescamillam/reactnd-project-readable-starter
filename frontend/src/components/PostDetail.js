@@ -7,9 +7,30 @@ import { upvoteComment,
   downvotePost,
   editPost,
   deletePost,
-  obtainComments } from '../actions'
+  obtainComments,
+  addCommentAction,
+  deleteCommentAction } from '../actions'
 
 class PostDetail extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      author: 'aut',
+      body: 'bod',
+      parentId: this.props.match.params.postid};
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.createComment(this.state);
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.id]: event.target.value});
+  }
 
   voteup = () => {
     return this.props.onUpvote(this.props.posts
@@ -27,6 +48,10 @@ class PostDetail extends Component {
 
   downvoteComment = (data) => {
     return this.props.downvote(data);
+  }
+
+  deleteComment = (data) => {
+    return this.props.onDeleteComment(data);
   }
 
   delete = () => {
@@ -59,7 +84,7 @@ class PostDetail extends Component {
           <div className='post-action' onClick={this.votedown}>downvote</div>
           <div className='post-action'>{post && post.voteScore}</div>
           <div className='post-action'>edit</div>
-          <div className='post-action'>delete</div>
+          <div className='post-action' onClick={this.delete}>delete</div>
         </div>
         {comments && comments.map((comment) =>
           <div key={comment.id} className="post-container">
@@ -67,9 +92,20 @@ class PostDetail extends Component {
             <div>{comment.author}</div>
             <div className='post-action' onClick={(e) => this.upvoteComment(comment)}>upvote</div>
             <div className='post-action' onClick={(e) => this.downvoteComment(comment)}>downvote</div>
+            <div className='post-action' onClick={(e) => this.deleteComment(comment)}>delete</div>
             <div className='post-action'>{comment.voteScore}</div>
           </div>
         )}
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+          <div className="label">Add comment</div><br/>
+          <div className="label">author</div>
+          <input className="form-field" value={this.state.author} id="author" type="text"/>
+          <div className="label">body</div>
+          <input className="form-field" value={this.state.body} id="body" type="text"/>
+          <div className="row">
+            <input className="submitButton" type="submit"/>
+          </div>
+        </form>
       </div>
     );
   }
@@ -89,7 +125,9 @@ function mapDispatchToProps (dispatch) {
     onDownvote: (data) => dispatch(downvotePost(data)),
     onEdit: (data) => dispatch(editPost(data)),
     onDelete: (data) => dispatch(deletePost(data)),
-    fetchComments: (data) => dispatch(obtainComments(data))
+    onDeleteComment: (data) => dispatch(deleteCommentAction(data)),
+    fetchComments: (data) => dispatch(obtainComments(data)),
+    createComment: (data) => dispatch(addCommentAction(data))
   }
 }
 
