@@ -98,7 +98,6 @@ export function downvotePost(post) {
 
 export function upvoteComment(comment) {
   return async (dispatch) => {
-    debugger
     dispatch({ type: PROCESSING, comment });
     upvoteCommentApi(comment, dispatchCommentVoted, dispatch);
   }
@@ -199,7 +198,7 @@ export function obtainComments(postid) {
 export function deleteCommentAction(comment) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, comment });
-    removeCommentApi(comment.id, dispatchDeleted, dispatch);
+    removeCommentApi(comment.id, dispatchDeletedComment, dispatch);
   }
   return {
     type: DELETE_COMMENT,
