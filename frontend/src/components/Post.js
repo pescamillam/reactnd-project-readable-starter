@@ -8,7 +8,8 @@ import { upvoteComment,
   upvotePost,
   downvotePost,
   editPost,
-  deletePost } from '../actions'
+  deletePost,
+  obtainComments } from '../actions'
 
 class Post extends Component {
 
@@ -28,8 +29,12 @@ class Post extends Component {
     return this.props.onEdit(this.props.post);
   }
 
+  componentDidMount() {
+    this.props.fetchComments(this.props.post.id);
+  }
+
   render() {
-    const { post } = this.props;
+    const { post, comments } = this.props;
     return (
       <div className="post-container">
         <div className="post-title">{post.title}</div>
@@ -53,10 +58,11 @@ class Post extends Component {
   }
 }
 
-function mapStateToProps (state, ownProps) {
+function mapStateToProps ({ comments }, ownProps) {
   const { target } = ownProps;
   return {
-    target
+    target,
+    comments: comments.comments
   }
 }
 
@@ -67,7 +73,8 @@ function mapDispatchToProps (dispatch) {
     onUpvote: (data) => dispatch(upvotePost(data)),
     onDownvote: (data) => dispatch(downvotePost(data)),
     onEdit: (data) => dispatch(editPost(data)),
-    onDelete: (data) => dispatch(deletePost(data))
+    onDelete: (data) => dispatch(deletePost(data)),
+    fetchComments: (data) => dispatch(obtainComments(data))
   }
 }
 

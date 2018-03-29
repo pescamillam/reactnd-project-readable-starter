@@ -35,6 +35,7 @@ class App extends Component {
               )}
             </div>
             <div>
+              <Route exact path='/' component={ListAllPosts}/>
               <Route exact path='/' render={() => (
                 <ListAllPosts categories={categories} posts={posts}/>
               )}/>
@@ -42,6 +43,9 @@ class App extends Component {
                 <Route exact path='/create' render={({match}) => (
                   <CreatePost categories={categories}/>
                 )}/>
+
+                <Route exact path='/createPost' component={CreatePost}/>
+
                 <Route exact path='/:category' render={({match}) => (
                   <ListPostsByCategory categories={categories}
                     posts={posts} match={match}/>
@@ -57,7 +61,7 @@ class App extends Component {
           </div>
         </div>
         <div className="open-search">
-          <Link to={`/create`}/>
+          <Link to={`/createPost`}/>
         </div>
       </div>
     );

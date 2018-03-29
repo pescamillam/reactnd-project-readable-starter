@@ -160,7 +160,6 @@ export function getPosts(posts) {
 }
 
 export function getComments(comments) {
-  console.log('getcommentsactions1');
   return {
     type: GET_COMMENTS,
     comments

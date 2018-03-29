@@ -12,8 +12,10 @@ class CreatePost extends Component {
   }
 
   handleSubmit(event) {
+    const { history } = this.props;
     event.preventDefault();
     this.props.createPost(this.state);
+     history.push('/');
   }
 
   handleChange(event) {
@@ -21,6 +23,7 @@ class CreatePost extends Component {
   }
 
   render() {
+    debugger
     const { categories, createPost, posts, match } = this.props;
     var post;
     if (posts) {
@@ -53,8 +56,9 @@ class CreatePost extends Component {
   }
 }
 
-function mapStateToProps () {
+function mapStateToProps (state, props) {
   return {
+    categories: state.categories
   }
 }
 
