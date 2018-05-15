@@ -98,15 +98,15 @@ export function comments(state={}, action) {
         comments: state.comments.filter(comment => comment.id !== action.comment.id)
       }
     case GET_COMMENTS:
+      let parentId;
+      let comments = state.comments || [];
+      if (action.comments && action.comments.length > 0) {
+        parentId = action.comments[0].parentId;
+        comments = comments.filter(comment => comment && comment.parentId !== parentId).concat(action.comments);
+      }
       return {
         ...state,
-        comments: action.comments ? action.comments.concat(state.comments).reduce((acc, x) => {
-          debugger
-                      if (x) {
-                          acc[x.id] = Object.assign(acc[x.id] || {}, x);
-                      }
-                      return acc;
-                  }, {}) : state.comments
+        comments
       }
     case COMMENT_VOTED:
       return {
