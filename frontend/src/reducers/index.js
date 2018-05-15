@@ -100,7 +100,13 @@ export function comments(state={}, action) {
     case GET_COMMENTS:
       return {
         ...state,
-        comments: action.comments
+        comments: action.comments ? action.comments.concat(state.comments).reduce((acc, x) => {
+          debugger
+                      if (x) {
+                          acc[x.id] = Object.assign(acc[x.id] || {}, x);
+                      }
+                      return acc;
+                  }, {}) : state.comments
       }
     case COMMENT_VOTED:
       return {

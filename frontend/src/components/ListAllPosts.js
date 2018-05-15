@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Post from './Post';
+import { connect } from 'react-redux';
 
 class ListAllPosts extends Component {
   render() {
@@ -21,4 +22,19 @@ class ListAllPosts extends Component {
   }
 }
 
-export default ListAllPosts
+const mapStateToProps = (state, props) => {
+  const { posts, categories, post } = state;
+  return {
+    posts: posts.posts
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListAllPosts)

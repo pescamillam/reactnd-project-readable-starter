@@ -33,8 +33,15 @@ class Post extends Component {
     this.props.fetchComments(this.props.post.id);
   }
 
+  getPostComments = (postId) => {
+  		if (Array.isArray(this.props.comments)) {
+  			return this.props.comments.filter((comment) => (comment ? comment.parentId === postId : false));
+  		}
+  };
+
   render() {
     const { post, comments } = this.props;
+    debugger
     return (
       <div className="post-container">
         <div className="post-title">{post.title}</div>
@@ -52,6 +59,7 @@ class Post extends Component {
         <Link className='post-action post-link' key={`{post.id}edit`} to={`/${post.category}/${post.id}/edit`}>
           Edit
         </Link>
+        <div className='post-action'>{this.getPostComments(post.id) && this.getPostComments(post.id).length}</div>
         <div className='post-action' onClick={this.delete}>delete</div>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Post from './Post';
+import { connect } from 'react-redux';
 
 class ListPostsByCategory extends Component {
   render() {
@@ -22,4 +23,19 @@ class ListPostsByCategory extends Component {
   }
 }
 
-export default ListPostsByCategory
+const mapStateToProps = (state, props) => {
+  const { posts, categories, post } = state;
+  return {
+    posts: posts.posts
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListPostsByCategory)

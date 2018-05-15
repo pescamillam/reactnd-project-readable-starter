@@ -190,7 +190,9 @@ export function obtainPosts() {
 export function obtainComments(postid) {
   return function (dispatch) {
     fetchCommentsApi(postid)
-      .then((comments) => dispatch(getComments(comments)))
+      .then((comments) => {
+        dispatch(getComments(comments))
+      })
   }
 }
 

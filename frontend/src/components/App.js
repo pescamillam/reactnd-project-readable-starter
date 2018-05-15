@@ -36,27 +36,12 @@ class App extends Component {
             </div>
             <div>
               <Route exact path='/' component={ListAllPosts}/>
-              <Route exact path='/' render={() => (
-                <ListAllPosts categories={categories} posts={posts}/>
-              )}/>
               <Switch>
-                <Route exact path='/create' render={({match}) => (
-                  <CreatePost categories={categories}/>
-                )}/>
-
                 <Route exact path='/createPost' component={CreatePost}/>
-
-                <Route exact path='/:category' render={({match}) => (
-                  <ListPostsByCategory categories={categories}
-                    posts={posts} match={match}/>
-                )}/>
+                <Route exact path='/:category' component={ListPostsByCategory}/>
               </Switch>
-              <Route exact path='/:category/:postid' render={({match}) => (
-                <PostDetail categories={categories} posts={posts} match={match}/>
-              )}/>
-              <Route exact path='/:category/:postid/edit' render={({match}) => (
-                <CreatePost categories={categories} posts={posts} match={match}/>
-              )}/>
+              <Route exact path='/:category/:postid' component={PostDetail}/>
+              <Route exact path='/:category/:postid/edit' component={CreatePost}/>
             </div>
           </div>
         </div>
