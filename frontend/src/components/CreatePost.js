@@ -18,6 +18,7 @@ class CreatePost extends Component {
       this.state.id = match.params.postid;
       this.props.editPost(this.state);
     } else {
+      this.state.category = this.state.category || 'react';
       this.props.createPost(this.state);
     }
     history.push('/');
@@ -38,14 +39,14 @@ class CreatePost extends Component {
       <div>
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <div className="label">title</div>
-          <input className="form-field" value={this.state.title || post && post.title } id="title" type="text"/>
+          <input className="form-field" value={this.state.title || (post && post.title) } id="title" type="text"/>
           <div className="label">author</div>
-          <input className="form-field" value={this.state.author || post && post.author } id="author" type="text"/>
+          <input className="form-field" value={this.state.author || (post && post.author) } id="author" type="text"/>
           <div className="label">body</div>
-          <input className="form-field" value={this.state.body || post && post.body } id="body" type="text"/>
+          <input className="form-field" value={this.state.body || (post && post.body) } id="body" type="text"/>
           <div className="label">category</div>
           <div className="form-field">
-            <select value={this.state.category} id="category">
+            <select value={this.state.category || (post && post.category) } id="category">
             {this.props.categories.map((category) =>
               <option value={category.name}>{category.name}</option>
             )}

@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import registerServiceWorker from './registerServiceWorker';
 import { Route } from 'react-router-dom';
-import reducer from './reducers';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
 import { Provider } from 'react-redux'

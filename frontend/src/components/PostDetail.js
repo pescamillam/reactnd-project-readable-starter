@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { upvoteComment,
   downvoteComment,
@@ -62,15 +63,16 @@ class PostDetail extends Component {
 
   render() {
     const { posts, comments, match } = this.props;
+    const { postid, category } = match.params;
     let postcomments;
     if (comments) {
-      postcomments = comments.filter(comment => comment && comment.parentId === match.params.postid);
+      postcomments = comments.filter(comment => comment && comment.parentId === postid);
     }
 
     let post;
     if (posts) {
       post = posts &&
-        posts.filter((post) => (post.id === match.params.postid))[0];
+        posts.filter((post) => (post.id === postid))[0];
     }
     return (
       <div>
@@ -82,6 +84,9 @@ class PostDetail extends Component {
           <div className='post-action' onClick={this.votedown}>downvote</div>
           <div className='post-action'>{post && post.voteScore}</div>
           <div className='post-action'>edit</div>
+          <Link className='post-action post-link' key={`edit`} to={`/${category}/${postid}/edit`}>
+            Edit
+          </Link>
           <div className='post-action' onClick={this.delete}>delete</div>
           <div className='post-action'>comments({postcomments && postcomments.length})</div>
         </div>

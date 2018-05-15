@@ -12,14 +12,12 @@ import { obtainCategories, obtainPosts } from '../actions';
 class App extends Component {
 
   componentDidMount() {
-    //fetchCategories().then((categories) => this.setState({categories}));
-    //fetchAllPosts().then((posts) => this.setState({posts}));
     this.props.fetchCategories();
     this.props.fetchAllPosts();
   }
 
   render() {
-    const { categories, posts, comments } = this.props;
+    const { categories } = this.props;
     return (
       <div>
         <div className="list-posts-title">
