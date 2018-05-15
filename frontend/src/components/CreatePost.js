@@ -13,13 +13,14 @@ class CreatePost extends Component {
 
   handleSubmit(event) {
     const { history, match } = this.props;
+    const postToSend = this.state;
     event.preventDefault();
     if (match.params.postid) {
-      this.state.id = match.params.postid;
-      this.props.editPost(this.state);
+      postToSend.id = match.params.postid;
+      this.props.editPost(postToSend);
     } else {
-      this.state.category = this.state.category || 'react';
-      this.props.createPost(this.state);
+      postToSend.category = this.state.category || 'react';
+      this.props.createPost(postToSend);
     }
     history.push('/');
   }
@@ -48,7 +49,7 @@ class CreatePost extends Component {
           <div className="form-field">
             <select value={this.state.category || (post && post.category) } id="category">
             {this.props.categories.map((category) =>
-              <option value={category.name}>{category.name}</option>
+              <option value={category.name} key={category.name}>{category.name}</option>
             )}
             </select>
           </div>
