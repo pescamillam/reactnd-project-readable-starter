@@ -59,7 +59,7 @@ class Post extends Component {
         <Link className='post-action post-link' key={`{post.id}edit`} to={`/${post.category}/${post.id}/edit`}>
           Edit
         </Link>
-        <div className='post-action'>{this.getPostComments(post.id) && this.getPostComments(post.id).length}</div>
+        <div className='post-action'>comments({this.getPostComments(post.id) && this.getPostComments(post.id).length})</div>
         <div className='post-action' onClick={this.delete}>delete</div>
       </div>
     );

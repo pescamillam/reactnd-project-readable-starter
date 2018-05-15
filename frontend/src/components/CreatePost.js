@@ -25,7 +25,7 @@ class CreatePost extends Component {
   render() {
     debugger
     const { categories, createPost, posts, match } = this.props;
-    var post;
+    let post;
     if (posts) {
       post = posts &&
         posts.filter((post) => (post.id === match.params.postid))[0];

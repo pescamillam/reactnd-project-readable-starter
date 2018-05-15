@@ -67,7 +67,12 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, categories, createPost, posts, match } = this.props;
+    const { posts, comments, match } = this.props;
+    let postcomments;
+    if (comments) {
+      postcomments = comments.filter(comment => comment && comment.parentId === match.params.postid);
+    }
+    debugger
 
     var post;
     if (posts) {
@@ -87,7 +92,7 @@ class PostDetail extends Component {
           <div className='post-action'>edit</div>
           <div className='post-action' onClick={this.delete}>delete</div>
         </div>
-        {comments && comments.map((comment) => comment &&
+        {postcomments && postcomments.map((comment) => comment &&
           <div key={comment.id} className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
@@ -112,10 +117,10 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps ({comments}, ownProps) {
-  const { target } = ownProps;
+function mapStateToProps ({ comments, posts }) {
   return {
-    comments: comments.comments
+    comments: comments.comments,
+    posts: posts.posts
   }
 }
 
