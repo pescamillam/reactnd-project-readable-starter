@@ -2,6 +2,7 @@ import { upvotePostApi,
   downvotePostApi,
   createPost,
   createComment,
+  editPostApi,
   fetchCategories,
   fetchAllPosts,
   removePost,
@@ -11,17 +12,13 @@ import { upvotePostApi,
   removeCommentApi } from '../utils/api'
 
 export const ADD_POST = 'ADD_POST';
-export const VOTE_UP_POST = 'VOTE_UP_POST';
-export const VOTE_DOWN_POST = 'VOTE_DOWN_POST';
-
-export const DELETE_POST = 'DELETE_POST';
-export const EDIT_POST = 'EDIT_POST';
 
 export const POST_CREATE = 'POST_CREATE';
 
 export const POST_VOTED = 'POST_VOTED';
 export const POST_CREATED = 'POST_CREATED';
 export const POST_DELETED = 'POST_DELETED';
+export const POST_EDITED = 'POST_EDITED';
 
 export const PROCESSING = 'PROCESSING';
 
@@ -35,7 +32,6 @@ export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT';
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT';
-export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export const GET_COMMENTS = 'GET_COMMENTS';
 
@@ -47,20 +43,12 @@ export function addPost(post) {
     dispatch({ type: PROCESSING, post });
     createPost(post, dispatchCreated, dispatch);
   }
-  return {
-    type: ADD_POST,
-    post
-  }
 }
 
 export function addCommentAction(comment) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, comment });
     createComment(comment, dispatchCommentCreated, dispatch);
-  }
-  return {
-    type: ADD_COMMENT,
-    comment
   }
 }
 
@@ -69,16 +57,11 @@ export function deletePost(post) {
     dispatch({ type: PROCESSING, post });
     removePost(post.id, dispatchDeleted, dispatch);
   }
-  return {
-    type: DELETE_POST,
-    post
-  }
 }
 
-export function editPost(post) {
-  return {
-    type: EDIT_POST,
-    post
+export function editPostAction(post) {
+  return async (dispatch) => {
+    editPostApi(post, dispatchPostEdited, dispatch);
   }
 }
 
@@ -121,6 +104,13 @@ function dispatchCreated(createdPost) {
   return {
     type: POST_CREATED,
     post: createdPost
+  }
+}
+
+function dispatchPostEdited(editedPost) {
+  return {
+    type: POST_EDITED,
+    post: editedPost
   }
 }
 
@@ -200,9 +190,5 @@ export function deleteCommentAction(comment) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, comment });
     removeCommentApi(comment.id, dispatchDeletedComment, dispatch);
-  }
-  return {
-    type: DELETE_COMMENT,
-    comment
   }
 }

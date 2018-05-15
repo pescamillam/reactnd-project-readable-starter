@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { upvoteComment,
   downvoteComment,
-  upvotePsost,
+  upvotePost,
   downvotePost,
   deletePost,
   obtainComments,
@@ -88,9 +88,9 @@ class PostDetail extends Component {
           <div key={comment.id} className="post-container">
             <div>{comment.body}</div>
             <div>{comment.author}</div>
-            <div className='post-action' onClick={(e) => this.upvoteComment(comment)}>upvote</div>
-            <div className='post-action' onClick={(e) => this.downvoteComment(comment)}>downvote</div>
-            <div className='post-action' onClick={(e) => this.deleteComment(comment)}>delete</div>
+            <div className='post-action' onClick={() => this.upvoteComment(comment)}>upvote</div>
+            <div className='post-action' onClick={() => this.downvoteComment(comment)}>downvote</div>
+            <div className='post-action' onClick={() => this.deleteComment(comment)}>delete</div>
             <div className='post-action'>{comment.voteScore}</div>
           </div>
         )}

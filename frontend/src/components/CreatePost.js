@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addPost, editPost } from '../actions';
+import { addPost, editPostAction } from '../actions';
 import { connect } from 'react-redux';
 
 class CreatePost extends Component {
@@ -15,6 +15,7 @@ class CreatePost extends Component {
     const { history, match } = this.props;
     event.preventDefault();
     if (match.params.postid) {
+      this.state.id = match.params.postid;
       this.props.editPost(this.state);
     } else {
       this.props.createPost(this.state);
@@ -69,7 +70,7 @@ function mapStateToProps ({ categories, posts }) {
 function mapDispatchToProps (dispatch) {
   return {
     createPost: (data) => dispatch(addPost(data)),
-    editPost: (data) => dispatch(editPost(data))
+    editPost: (data) => dispatch(editPostAction(data))
   }
 }
 
