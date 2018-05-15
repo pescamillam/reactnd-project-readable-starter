@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setSortTypeAction } from '../actions';
+import { TITLE_AZ, TITLE_ZA, SCORE_0N, SCORE_N0} from "../utils/sortFunctions";
 
 class Order extends Component {
 
@@ -9,19 +10,19 @@ class Order extends Component {
   };
 
   sortByTitleAZ = () => {
-    return this.sort('titleAZ');
+    return this.sort(TITLE_AZ);
   };
 
   sortByTitleZA = () => {
-    return this.sort('titleZA');
+    return this.sort(TITLE_ZA);
   };
 
   sortByScore0n = () => {
-    return this.sort('score0n');
+    return this.sort(SCORE_0N);
   };
 
   sortByScoren0 = () => {
-    return this.sort('scoren0');
+    return this.sort(SCORE_N0);
   };
 
   sortItemClassName = (sortType) => {
@@ -36,10 +37,10 @@ class Order extends Component {
     return (
       <div className="sort-container">
         <div className="sort-label">Sort:</div>
-        <div className={this.sortItemClassName('titleAZ')} onClick={this.sortByTitleAZ}>title A-Z</div>
-        <div className={this.sortItemClassName('titleZA')} onClick={this.sortByTitleZA}>title Z-A</div>
-        <div className={this.sortItemClassName('score0n')} onClick={this.sortByScore0n}>score 0..n</div>
-        <div className={this.sortItemClassName('scoren0')} onClick={this.sortByScoren0}>score n..0</div>
+        <div className={this.sortItemClassName(TITLE_AZ)} onClick={this.sortByTitleAZ}>title A-Z</div>
+        <div className={this.sortItemClassName(TITLE_ZA)} onClick={this.sortByTitleZA}>title Z-A</div>
+        <div className={this.sortItemClassName(SCORE_0N)} onClick={this.sortByScore0n}>score 0..n</div>
+        <div className={this.sortItemClassName(SCORE_N0)} onClick={this.sortByScoren0}>score n..0</div>
       </div>
     );
   }

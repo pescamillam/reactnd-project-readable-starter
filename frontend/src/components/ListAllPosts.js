@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Post from './Post';
 import Order from './Order';
 import { connect } from 'react-redux';
+import { sortTitles } from "../utils/sortFunctions";
 
 class ListAllPosts extends Component {
   render() {
-    const { posts } = this.props;
+    const { posts, sort } = this.props;
+    posts && sortTitles(posts, sort.sortType);
     return (
     <div className="list-posts">
       <div className="list-posts-content">
@@ -23,9 +25,10 @@ class ListAllPosts extends Component {
   }
 }
 
-const mapStateToProps = ({ posts }) => {
+const mapStateToProps = ({ posts, sort }) => {
   return {
-    posts: posts.posts
+    posts: posts.posts,
+    sort: sort
   }
 };
 
