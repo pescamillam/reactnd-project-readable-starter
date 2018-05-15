@@ -83,6 +83,7 @@ class PostDetail extends Component {
           <div className='post-action'>{post && post.voteScore}</div>
           <div className='post-action'>edit</div>
           <div className='post-action' onClick={this.delete}>delete</div>
+          <div className='post-action'>comments({postcomments && postcomments.length})</div>
         </div>
         {postcomments && postcomments.map((comment) => comment &&
           <div key={comment.id} className="post-container">
