@@ -18,7 +18,8 @@ import {
   COMMENT_VOTED,
   COMMENT_CREATED,
   COMMENT_DELETED,
-  SET_SORT_TYPE
+  SET_SORT_TYPE,
+  COMMENT_EDITED
 } from '../actions';
 
 
@@ -136,6 +137,11 @@ export function comments(state={}, action) {
       return {
         ...state,
         comments: state.comments.concat(action.comment)
+      };
+    case COMMENT_EDITED:
+      return {
+        ...state,
+        comments: state.comments.filter(comment => comment.id !== action.comment.id).concat(action.comment)
       };
     default:
       return state;

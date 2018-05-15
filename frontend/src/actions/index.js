@@ -6,6 +6,7 @@ import { upvotePostApi,
   fetchCategories,
   fetchAllPosts,
   removePost,
+  editCommentApi,
   fetchCommentsApi,
   upvoteCommentApi,
   downvoteCommentApi,
@@ -39,10 +40,12 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 
 export const COMMENT_VOTED = 'COMMENT_VOTED';
 export const COMMENT_DELETED = 'COMMENT_DELETED';
+export const COMMENT_EDITED = 'COMMENT_EDITED';
 
 /* sort */
 export const SET_SORT_TYPE = 'SET_SORT_TYPE';
 
+/* post actions */
 export function addPost(post) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, post });
@@ -182,6 +185,8 @@ export function obtainPosts() {
   }
 }
 
+/* comments */
+
 export function obtainComments(postid) {
   return function (dispatch) {
     fetchCommentsApi(postid)
@@ -195,6 +200,19 @@ export function deleteCommentAction(comment) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, comment });
     removeCommentApi(comment.id, dispatchDeletedComment, dispatch);
+  }
+}
+
+export function editCommentAction(comment) {
+  return async (dispatch) => {
+    editCommentApi(comment, dispatchCommentEdited, dispatch)
+  }
+}
+
+function dispatchCommentEdited(editedComment) {
+  return {
+    type: COMMENT_EDITED,
+    comment: editedComment
   }
 }
 

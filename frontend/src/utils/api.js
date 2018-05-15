@@ -95,3 +95,11 @@ export const removeCommentApi = (id, responseFunction, dispatch) => {
     }).then((res) => res.json())
     .then((res) => dispatch(responseFunction(res)));
 };
+
+export const editCommentApi = (comment, responseFunction, dispatch) => {
+  fetch(`${api}/comments/${comment.id}`, { headers,
+    method: 'PUT',
+    body: JSON.stringify(comment)
+  }).then((res) => res.json())
+    .then((res) => dispatch(responseFunction(res)));
+};
