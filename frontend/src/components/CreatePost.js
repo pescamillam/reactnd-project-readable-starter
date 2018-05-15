@@ -6,7 +6,7 @@ class CreatePost extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {title: 'coconut', author: 'aut', body: 'bod', category: 'react'};
+    this.state = {};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -15,7 +15,7 @@ class CreatePost extends Component {
     const { history } = this.props;
     event.preventDefault();
     this.props.createPost(this.state);
-     history.push('/');
+    history.push('/');
   }
 
   handleChange(event) {
@@ -23,8 +23,7 @@ class CreatePost extends Component {
   }
 
   render() {
-    debugger
-    const { categories, createPost, posts, match } = this.props;
+    const { posts, match } = this.props;
     let post;
     if (posts) {
       post = posts &&
@@ -34,11 +33,11 @@ class CreatePost extends Component {
       <div>
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <div className="label">title</div>
-          <input className="form-field" value={(post && post.title) || this.state.title} id="title" type="text"/>
+          <input className="form-field" value={this.state.title || post && post.title } id="title" type="text"/>
           <div className="label">author</div>
-          <input className="form-field" value={(post && post.author) || this.state.author} id="author" type="text"/>
+          <input className="form-field" value={this.state.author || post && post.author } id="author" type="text"/>
           <div className="label">body</div>
-          <input className="form-field" value={(post && post.body) || this.state.body} id="body" type="text"/>
+          <input className="form-field" value={this.state.body || post && post.body } id="body" type="text"/>
           <div className="label">category</div>
           <div className="form-field">
             <select value={this.state.category} id="category">
@@ -56,9 +55,10 @@ class CreatePost extends Component {
   }
 }
 
-function mapStateToProps (state, props) {
+function mapStateToProps ({ categories, posts }) {
   return {
-    categories: state.categories
+    categories: categories,
+    posts: posts.posts
   }
 }
 

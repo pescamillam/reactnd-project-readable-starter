@@ -23,7 +23,7 @@ class ListAllPosts extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const { posts, categories, post } = state;
+  const { posts } = state;
   return {
     posts: posts.posts
   }

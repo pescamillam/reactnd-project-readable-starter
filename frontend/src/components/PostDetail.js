@@ -72,14 +72,12 @@ class PostDetail extends Component {
     if (comments) {
       postcomments = comments.filter(comment => comment && comment.parentId === match.params.postid);
     }
-    debugger
 
-    var post;
+    let post;
     if (posts) {
       post = posts &&
         posts.filter((post) => (post.id === match.params.postid))[0];
     }
-    debugger
     return (
       <div>
         <div className="post-container">

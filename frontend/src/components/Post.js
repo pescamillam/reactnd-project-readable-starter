@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 import { upvoteComment,
   downvoteComment,
-  addPost,
   upvotePost,
   downvotePost,
   editPost,
@@ -15,23 +13,23 @@ class Post extends Component {
 
   voteup = () => {
     return this.props.onUpvote(this.props.post);
-  }
+  };
 
   votedown = () => {
     return this.props.onDownvote(this.props.post);
-  }
+  };
 
   delete = () => {
     return this.props.onDelete(this.props.post);
-  }
+  };
 
   edit = () => {
     return this.props.onEdit(this.props.post);
-  }
+  };
 
   componentDidMount() {
     this.props.fetchComments(this.props.post.id);
-  }
+  };
 
   getPostComments = (postId) => {
   		if (Array.isArray(this.props.comments)) {
@@ -40,8 +38,7 @@ class Post extends Component {
   };
 
   render() {
-    const { post, comments } = this.props;
-    debugger
+    const { post } = this.props;
     return (
       <div className="post-container">
         <div className="post-title">{post.title}</div>
