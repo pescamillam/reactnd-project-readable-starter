@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import Post from './Post';
+import Order from './Order';
 import { connect } from 'react-redux';
+import { sortTitles } from "../utils/sortFunctions";
 
 class ListPostsByCategory extends Component {
   render() {
-    const { posts, match } = this.props;
+    const { posts, match, sort } = this.props;
     const { category } = match.params;
     const postsByCategory = posts && posts.filter((post) => post.category === category);
+    postsByCategory && sortTitles(postsByCategory, sort.sortType);
     return (
     <div className="list-posts">
       <div className="list-posts-content">
         <div>
+          <Order/>
           <div>
             {postsByCategory && postsByCategory.map((post) =>
               <Post key={post.id} post={post}/>
@@ -23,14 +27,14 @@ class ListPostsByCategory extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const { posts, categories, post } = state;
+const mapStateToProps = ({ posts, sort }) => {
   return {
-    posts: posts.posts
+    posts: posts.posts,
+    sort: sort
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
   }
 };
