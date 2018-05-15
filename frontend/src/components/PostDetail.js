@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Comment from './Comment';
 import { upvoteComment,
   downvoteComment,
   upvotePost,
@@ -41,18 +42,6 @@ class PostDetail extends Component {
       .filter((post) => (post.id === this.props.match.params.postid))[0]);
   };
 
-  upvoteComment = (data) => {
-    return this.props.upvote(data);
-  };
-
-  downvoteComment = (data) => {
-    return this.props.downvote(data);
-  };
-
-  deleteComment = (data) => {
-    return this.props.onDeleteComment(data);
-  };
-
   delete = () => {
     return this.props.onDelete(this.props.post);
   };
@@ -91,14 +80,7 @@ class PostDetail extends Component {
           <div className='post-action'>comments({postcomments && postcomments.length})</div>
         </div>
         {postcomments && postcomments.map((comment) => comment &&
-          <div key={comment.id} className="post-container">
-            <div>{comment.body}</div>
-            <div>{comment.author}</div>
-            <div className='post-action' onClick={() => this.upvoteComment(comment)}>upvote</div>
-            <div className='post-action' onClick={() => this.downvoteComment(comment)}>downvote</div>
-            <div className='post-action' onClick={() => this.deleteComment(comment)}>delete</div>
-            <div className='post-action'>{comment.voteScore}</div>
-          </div>
+          <Comment key={comment.id} comment={comment}/>
         )}
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <div className="label">Add comment</div><br/>
