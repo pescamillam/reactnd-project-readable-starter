@@ -25,6 +25,8 @@ export const PROCESSING = 'PROCESSING';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS = 'GET_POSTS';
 
+
+/* comments */
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const COMMENT_CREATED = 'COMMENT_CREATED';
 export const GET_COMMENT = 'GET_COMMENT';
@@ -37,6 +39,9 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 
 export const COMMENT_VOTED = 'COMMENT_VOTED';
 export const COMMENT_DELETED = 'COMMENT_DELETED';
+
+/* sort */
+export const SET_SORT_TYPE = 'SET_SORT_TYPE';
 
 export function addPost(post) {
   return async (dispatch) => {
@@ -190,5 +195,13 @@ export function deleteCommentAction(comment) {
   return async (dispatch) => {
     dispatch({ type: PROCESSING, comment });
     removeCommentApi(comment.id, dispatchDeletedComment, dispatch);
+  }
+}
+
+/* sort */
+export function setSortTypeAction(sortType) {
+  return {
+    type: SET_SORT_TYPE,
+    sortType
   }
 }

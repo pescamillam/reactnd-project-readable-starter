@@ -1,22 +1,25 @@
 import { combineReducers } from 'redux';
-import { ADD_POST,
-    UPVOTE_COMMENT,
-    DOWNVOTE_COMMENT,
-    POST_VOTED,
-    POST_CREATED,
-    POST_CREATE,
-    POST_EDITED,
-    GET_CATEGORIES,
-    GET_POSTS,
-    ADD_COMMENT,
-    GET_COMMENT,
-    EDIT_COMMENT,
-    POST_DELETED,
-    GET_POST_COMMENTS,
-    GET_COMMENTS,
-    COMMENT_VOTED,
-    COMMENT_CREATED,
-    COMMENT_DELETED } from '../actions';
+import {
+  ADD_POST,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
+  POST_VOTED,
+  POST_CREATED,
+  POST_CREATE,
+  POST_EDITED,
+  GET_CATEGORIES,
+  GET_POSTS,
+  ADD_COMMENT,
+  GET_COMMENT,
+  EDIT_COMMENT,
+  POST_DELETED,
+  GET_POST_COMMENTS,
+  GET_COMMENTS,
+  COMMENT_VOTED,
+  COMMENT_CREATED,
+  COMMENT_DELETED,
+  SET_SORT_TYPE
+} from '../actions';
 
 
 export function posts (state=[], action) {
@@ -151,6 +154,18 @@ export function categories(state = [], action) {
 	}
 }
 
+export function sort(state = {}, action) {
+  switch (action.type) {
+    case SET_SORT_TYPE:
+      return {
+        ...state,
+        sortType: action.sortType
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  posts, comments, categories
+  posts, comments, categories, sort
 });

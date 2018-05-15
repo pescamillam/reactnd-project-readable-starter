@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Post from './Post';
+import Order from './Order';
 import { connect } from 'react-redux';
 
 class ListAllPosts extends Component {
   render() {
-    const { categories, posts } = this.props;
+    const { posts } = this.props;
     return (
     <div className="list-posts">
       <div className="list-posts-content">
+        <Order/>
         <div>
           <div>
             {posts && posts.map((post) =>
@@ -22,14 +23,13 @@ class ListAllPosts extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const { posts } = state;
+const mapStateToProps = ({ posts }) => {
   return {
     posts: posts.posts
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
   }
 };
