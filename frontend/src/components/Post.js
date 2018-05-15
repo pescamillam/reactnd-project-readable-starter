@@ -5,7 +5,6 @@ import { upvoteComment,
   downvoteComment,
   upvotePost,
   downvotePost,
-  editPost,
   deletePost,
   obtainComments } from '../actions'
 
@@ -21,10 +20,6 @@ class Post extends Component {
 
   delete = () => {
     return this.props.onDelete(this.props.post);
-  };
-
-  edit = () => {
-    return this.props.onEdit(this.props.post);
   };
 
   componentDidMount() {
@@ -77,7 +72,6 @@ function mapDispatchToProps (dispatch) {
     downvote: (data) => dispatch(downvoteComment(data)),
     onUpvote: (data) => dispatch(upvotePost(data)),
     onDownvote: (data) => dispatch(downvotePost(data)),
-    onEdit: (data) => dispatch(editPost(data)),
     onDelete: (data) => dispatch(deletePost(data)),
     fetchComments: (data) => dispatch(obtainComments(data))
   }

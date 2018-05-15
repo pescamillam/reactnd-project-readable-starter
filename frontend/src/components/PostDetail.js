@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { upvoteComment,
   downvoteComment,
-  addPost,
-  upvotePost,
+  upvotePsost,
   downvotePost,
-  editPost,
   deletePost,
   obtainComments,
   addCommentAction,
@@ -26,41 +24,37 @@ class PostDetail extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.createComment(this.state);
-  }
+  };
 
   handleChange(event) {
     this.setState({[event.target.id]: event.target.value});
-  }
+  };
 
   voteup = () => {
     return this.props.onUpvote(this.props.posts
       .filter((post) => (post.id === this.props.match.params.postid))[0]);
-  }
+  };
 
   votedown = () => {
     return this.props.onDownvote(this.props.posts
       .filter((post) => (post.id === this.props.match.params.postid))[0]);
-  }
+  };
 
   upvoteComment = (data) => {
     return this.props.upvote(data);
-  }
+  };
 
   downvoteComment = (data) => {
     return this.props.downvote(data);
-  }
+  };
 
   deleteComment = (data) => {
     return this.props.onDeleteComment(data);
-  }
+  };
 
   delete = () => {
     return this.props.onDelete(this.props.post);
-  }
-
-  edit = () => {
-    return this.props.onEdit(this.props.post);
-  }
+  };
 
   componentDidMount() {
     this.props.fetchComments(this.props.match.params.postid);
@@ -128,7 +122,6 @@ function mapDispatchToProps (dispatch) {
     downvote: (data) => dispatch(downvoteComment(data)),
     onUpvote: (data) => dispatch(upvotePost(data)),
     onDownvote: (data) => dispatch(downvotePost(data)),
-    onEdit: (data) => dispatch(editPost(data)),
     onDelete: (data) => dispatch(deletePost(data)),
     onDeleteComment: (data) => dispatch(deleteCommentAction(data)),
     fetchComments: (data) => dispatch(obtainComments(data)),
