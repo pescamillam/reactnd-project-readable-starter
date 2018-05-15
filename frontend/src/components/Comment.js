@@ -55,13 +55,17 @@ class Comment extends Component {
     return (
       editMode ?
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <div className="label">Edit comment</div><br/>
-          <div className="label">author</div>
+          <div className="label">
+            <h2>
+              Edit comment
+            </h2>
+          </div><br/>
+          <div className="label">Author</div>
           <input className="form-field" value={this.state.comment.author} id="author" type="text"/>
-          <div className="label">body</div>
+          <div className="label">Body</div>
           <input className="form-field" value={this.state.comment.body} id="body" type="text"/>
           <div className="row">
-            <input className="submitButton" type="submit"/>
+            <input className="submitButton" type="submit" value="Edit"/>
           </div>
         </form>
         :

@@ -16,11 +16,10 @@ class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      author: 'aut',
-      body: 'bod',
-      parentId: this.props.match.params.postid};
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleChange = this.handleChange.bind(this);
+      parentId: this.props.match.params.postid
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -83,13 +82,17 @@ class PostDetail extends Component {
           <Comment key={comment.id} comment={comment}/>
         )}
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <div className="label">Add comment</div><br/>
-          <div className="label">author</div>
+          <div className="label">
+            <h2>
+              Add comment
+            </h2>
+          </div><br/>
+          <div className="label">Author</div>
           <input className="form-field" value={this.state.author} id="author" type="text"/>
-          <div className="label">body</div>
+          <div className="label">Body</div>
           <input className="form-field" value={this.state.body} id="body" type="text"/>
           <div className="row">
-            <input className="submitButton" type="submit"/>
+            <input className="submitButton" type="submit" value="Create"/>
           </div>
         </form>
       </div>
