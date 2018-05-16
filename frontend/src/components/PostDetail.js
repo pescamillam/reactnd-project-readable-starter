@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Comment from './Comment';
+import NotFound from './NotFound';
 import { upvoteComment,
   downvoteComment,
   upvotePost,
@@ -63,6 +64,7 @@ class PostDetail extends Component {
         posts.filter((post) => (post.id === postid))[0];
     }
     return (
+      post ?
       <div>
         <div className="post-container">
           <div className="post-title">{post && post.title}</div>
@@ -95,7 +97,8 @@ class PostDetail extends Component {
             <input className="submitButton" type="submit" value="Create"/>
           </div>
         </form>
-      </div>
+      </div> :
+        <NotFound/>
     );
   }
 }
